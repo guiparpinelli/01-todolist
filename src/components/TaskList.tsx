@@ -1,45 +1,45 @@
-import { useState } from 'react';
+import { useState } from "react"
 
-import '../styles/tasklist.scss';
+import "../styles/tasklist.scss"
 
-import { FiTrash, FiCheckSquare } from 'react-icons/fi';
+import { FiTrash, FiCheckSquare } from "react-icons/fi"
 
 interface Task {
-  id: number;
-  title: string;
-  isComplete: boolean;
+  id: number
+  title: string
+  isComplete: boolean
 }
 
 export function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [newTaskTitle, setNewTaskTitle] = useState("")
 
   function handleCreateNewTask() {
     const newTask = {
       id: Math.floor(Math.random() * 1000),
       title: newTaskTitle,
       isComplete: false,
-    };
+    }
 
-    newTask.title ? setTasks([...tasks, newTask]) : false;
-    setNewTaskTitle('');
+    newTask.title ? setTasks([...tasks, newTask]) : false
+    setNewTaskTitle("")
   }
 
   function handleToggleTaskCompletion(id: number) {
     const updatedList = tasks.map((task) => {
       if (task.id === id) {
-        task.isComplete = !task.isComplete;
+        task.isComplete = !task.isComplete
       }
-      return task;
-    });
+      return task
+    })
 
-    setTasks(updatedList);
+    setTasks(updatedList)
   }
 
   function handleRemoveTask(id: number) {
-    const updatedList = [...tasks].filter((task) => task.id !== id);
+    const updatedList = [...tasks].filter((task) => task.id !== id)
 
-    setTasks(updatedList);
+    setTasks(updatedList)
   }
 
   return (
@@ -54,11 +54,7 @@ export function TaskList() {
             onChange={(e) => setNewTaskTitle(e.target.value)}
             value={newTaskTitle}
           />
-          <button
-            type="submit"
-            data-testid="add-task-button"
-            onClick={handleCreateNewTask}
-          >
+          <button type="submit" data-testid="add-task-button" onClick={handleCreateNewTask}>
             <FiCheckSquare size={16} color="#fff" />
           </button>
         </div>
@@ -68,10 +64,7 @@ export function TaskList() {
         <ul>
           {tasks.map((task) => (
             <li key={task.id}>
-              <div
-                className={task.isComplete ? 'completed' : ''}
-                data-testid="task"
-              >
+              <div className={task.isComplete ? "completed" : ""} data-testid="task">
                 <label className="checkbox-container">
                   <input
                     type="checkbox"
@@ -87,8 +80,7 @@ export function TaskList() {
               <button
                 type="button"
                 data-testid="remove-task-button"
-                onClick={() => handleRemoveTask(task.id)}
-              >
+                onClick={() => handleRemoveTask(task.id)}>
                 <FiTrash size={16} />
               </button>
             </li>
@@ -96,5 +88,5 @@ export function TaskList() {
         </ul>
       </main>
     </section>
-  );
+  )
 }
